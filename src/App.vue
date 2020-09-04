@@ -1,32 +1,42 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        Flavius App
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn v-if="$store.getters.isAuthenticated" text @click="logout()">
+        <span class="mr-2">Logout</span>
+        <v-icon>mdi-exit-to-app</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
 
-#nav {
-  padding: 30px;
+export default {
+  name: 'App',
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  data: () => ({
+    //
+  }),
 
-    &.router-link-exact-active {
-      color: #42b983;
+  methods: {
+    logout() {
+      this.$store.commit('USER', {});
+      this.$router.push('Login');
     }
   }
-}
-</style>
+};
+</script>
